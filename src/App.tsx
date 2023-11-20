@@ -8,13 +8,13 @@ export interface productInt {
   name: string;
   description: string;
   canExpire: boolean;
-  expiryDate: string;
+  expiryDate?: string;
   category: string;
   price: string;
   isSpecial: boolean;
 }
 
-const productList = [
+const products = [
   {
     name: "Apples",
     description: "Tessco Apples",
@@ -76,6 +76,7 @@ export interface categoryItem {
 }
 
 function App() {
+  const [productList, setProductList] = useState<productInt[]>(products);
   const [categories, setCategories] = useState<categoryItem[]>([]);
   const [showAddProduct, setShowAddProduct] = useState<boolean>(false);
 
@@ -92,12 +93,16 @@ function App() {
     })) as categoryItem[];
 
     setCategories(uniqueCategory);
-  }, [setCategories]);
+  }, [productList, setCategories]);
 
   const showProductForm = (visibility: boolean) =>
     setShowAddProduct(visibility);
 
-  const addProduct = (product: productInt) => productList.push(product);
+  const addProduct = (product: productInt) => {
+    console.log(product);
+    setProductList([...productList, product]);
+    setShowAddProduct(false);
+  };
 
   const onProductAddClick = () => {
     setShowAddProduct(true);

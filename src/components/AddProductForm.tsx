@@ -58,6 +58,8 @@ const registerReducer = (state: any, action: any) => {
       return { ...state, expiryDate: action.expiryDate, expiryDateError: "" };
     case "isSpecial":
       return { ...state, isSpecial: action.isSpecial };
+    case "reset":
+      return initialRegisterState;
   }
 };
 
@@ -101,15 +103,26 @@ export const AddProductForm: React.FC<AddProductFormProps> = ({
     }
 
     if (!isError) {
+      let formattedDate = "";
+      if (state.canExpire) {
+        const formatter = new Intl.DateTimeFormat("en-US", {
+          day: "2-digit",
+          month: "2-digit",
+          year: "numeric",
+        });
+        formattedDate = formatter.format(state.expiryDate);
+        console.log(formattedDate);
+      }
       addProduct({
         name: state.name,
         description: state.description,
         category: state.category,
         price: state.price,
         canExpire: state.canExpire,
-        expiryDate: state.expiryDate,
+        expiryDate: formattedDate,
         isSpecial: state.isSpecial,
       });
+      dispatch({ type: "reset" });
     }
   };
   const onNameChange = (e: any) => {

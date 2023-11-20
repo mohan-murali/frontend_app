@@ -52,13 +52,19 @@ export const Product: React.FC<ProductProps> = ({
       <Card title={name} footer={footer} header={header} className="w-25rem">
         <div>{description}</div>
         <div>{canExpire ? "Can Expire" : "Doesn't Expire"}</div>
-        {canExpire && expiryDate && <div>{expiryDate}</div>}
-        <div>{category}</div>
-        <div>{price}</div>
-        <Checkbox
-          onChange={(e) => setChecked(e.checked ?? false)}
-          checked={checked}
-        ></Checkbox>
+        {canExpire && expiryDate && <div>Expirey Date: {expiryDate}</div>}
+        <div> category: {category}</div>
+        <div>price: {price}</div>
+        <div className="flex align-items-center justify-content-center">
+          <Checkbox
+            id="special"
+            onChange={(e) => setChecked(e.checked ?? false)}
+            checked={checked}
+          ></Checkbox>
+          <label className="ml-2" htmlFor="special">
+            Special
+          </label>
+        </div>
       </Card>
     </div>
   );
