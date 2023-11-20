@@ -4,77 +4,27 @@ import { Calendar } from "primereact/calendar";
 import { Checkbox } from "primereact/checkbox";
 import { Dialog } from "primereact/dialog";
 import { InputText } from "primereact/inputtext";
-import React, { useReducer } from "react";
+import React, { useEffect, useReducer } from "react";
 import { productInt } from "../App";
+import { initialRegisterState, registerReducer } from "./AddProductForm";
 
-export interface AddProductFormProps {
+export interface EditProductFormProps {
+  product?: productInt;
   visible: boolean;
   setVisible: (visiblility: boolean) => void;
-  addProduct: (product: productInt) => void;
+  updateProduct: (product: productInt) => void;
 }
 
-export const initialRegisterState = {
-  name: "",
-  nameError: "",
-  description: "",
-  descriptionError: "",
-  category: "",
-  categoryError: "",
-  price: "",
-  priceError: "",
-  canExpire: false,
-  expiryDate: "",
-  expiryDateError: "",
-  isSpecial: false,
-};
-
-export const registerReducer = (state: any, action: any) => {
-  switch (action.type) {
-    case "descriptionError":
-      return { ...state, descriptionError: action.error };
-    case "categoryError":
-      return { ...state, categoryError: action.error };
-    case "nameError":
-      return { ...state, nameError: action.error };
-    case "priceError":
-      return { ...state, priceError: action.error };
-    case "expiryDateError":
-      return { ...state, expiryDateError: action.error };
-    case "description":
-      return {
-        ...state,
-        description: action.description,
-        descriptionError: "",
-      };
-    case "category":
-      return { ...state, category: action.category, categoryError: "" };
-    case "name":
-      return { ...state, name: action.name, nameError: "" };
-    case "price":
-      return { ...state, price: action.price, priceError: "" };
-    case "canExpire":
-      return { ...state, canExpire: action.canExpire, canExpireError: "" };
-    case "expiryDate":
-      return { ...state, expiryDate: action.expiryDate, expiryDateError: "" };
-    case "isSpecial":
-      return { ...state, isSpecial: action.isSpecial };
-    case "reset":
-      return initialRegisterState;
-    case "updateProduct":
-      return {
-        ...state,
-        ...action.product,
-        expiryDate: Date.parse(action.product?.expiryDate),
-      };
-  }
-};
-
-export const AddProductForm: React.FC<AddProductFormProps> = ({
+export const EditProductForm: React.FC<EditProductFormProps> = ({
+  product,
   visible,
   setVisible,
-  addProduct,
+  updateProduct,
 }) => {
   const [state, dispatch] = useReducer(registerReducer, initialRegisterState);
+  useEffect(() => {
+    dispatch({ type: "updateProduct", product });
+  }, [product]);
   const handleSubmit = async (e: any) => {
     e.preventDefault();
 
@@ -110,7 +60,7 @@ export const AddProductForm: React.FC<AddProductFormProps> = ({
 
     if (!isError) {
       let formattedDate = "";
-      if (state.canExpire && state.expiryDate) {
+      if (state.canExpire) {
         const formatter = new Intl.DateTimeFormat("en-US", {
           day: "2-digit",
           month: "2-digit",
@@ -119,7 +69,7 @@ export const AddProductForm: React.FC<AddProductFormProps> = ({
         formattedDate = formatter.format(state.expiryDate);
         console.log(formattedDate);
       }
-      addProduct({
+      updateProduct({
         name: state.name,
         description: state.description,
         category: state.category,
@@ -128,7 +78,7 @@ export const AddProductForm: React.FC<AddProductFormProps> = ({
         expiryDate: formattedDate,
         isSpecial: state.isSpecial,
       });
-      dispatch({ type: "reset" });
+      setVisible(false);
     }
   };
   const onNameChange = (e: any) => {
@@ -226,7 +176,7 @@ export const AddProductForm: React.FC<AddProductFormProps> = ({
           <label htmlFor="special">Special</label>
         </div>
         <Button className="mt-4" type="submit">
-          Add
+          Update
         </Button>
       </form>
     </Dialog>

@@ -7,17 +7,28 @@ import { categoryItem } from "../App";
 export interface NavbarProps {
   filterItems: categoryItem[];
   onAdd: () => void;
+  onFilter: (filterCategories: categoryItem[]) => void;
 }
 
-export const Navbar: React.FC<NavbarProps> = ({ filterItems, onAdd }) => {
+export const Navbar: React.FC<NavbarProps> = ({
+  filterItems,
+  onAdd,
+  onFilter,
+}) => {
   const [selectedItems, setSelectedItem] = useState(null);
+  const onFilterItem = (e: MultiSelectChangeEvent) => {
+    console.log(e.value);
+    setSelectedItem(e.value);
+    onFilter(e.value);
+  };
+
   const filterTemplate = () => {
     const items = filterItems;
     return (
-      <div>
+      <div className="flex justify-content-center">
         <MultiSelect
           value={selectedItems}
-          onChange={(e: MultiSelectChangeEvent) => setSelectedItem(e.value)}
+          onChange={onFilterItem}
           options={items}
           optionLabel="name"
           placeholder="Select Filter"
@@ -35,5 +46,5 @@ export const Navbar: React.FC<NavbarProps> = ({ filterItems, onAdd }) => {
       template: filterTemplate,
     },
   ];
-  return <Menubar model={items} />;
+  return <Menubar className="bg-cyan-500" model={items} />;
 };

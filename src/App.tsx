@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import "./App.css";
 import { AddProductForm } from "./components/AddProductForm";
+import { EditProductForm } from "./components/EditProductForm";
 import { Navbar } from "./components/Navbar";
 import { Product } from "./components/Product";
 
@@ -79,6 +80,8 @@ function App() {
   const [productList, setProductList] = useState<productInt[]>(products);
   const [categories, setCategories] = useState<categoryItem[]>([]);
   const [showAddProduct, setShowAddProduct] = useState<boolean>(false);
+  const [showEditProduct, setShowEditProduct] = useState<boolean>(false);
+  const [product, setProduct] = useState<productInt>();
 
   useEffect(() => {
     const categorySet = new Set();
@@ -98,8 +101,10 @@ function App() {
   const showProductForm = (visibility: boolean) =>
     setShowAddProduct(visibility);
 
+  const showEditProductForm = (visibility: boolean) =>
+    setShowEditProduct(visibility);
+
   const addProduct = (product: productInt) => {
-    console.log(product);
     setProductList([...productList, product]);
     setShowAddProduct(false);
   };
@@ -108,9 +113,50 @@ function App() {
     setShowAddProduct(true);
   };
 
+  const onEditClick = (product: productInt) => {
+    setProduct(product);
+    setShowEditProduct(true);
+  };
+
+  const onDeleteClick = (name: string) => {
+    const deletedList = productList.filter((p) => p.name !== name);
+    setProductList(deletedList);
+  };
+
+  const updateProduct = (product: productInt) => {
+    const updatedProductList = productList.map((p) => {
+      if (p.name === product.name) {
+        p.canExpire = product.canExpire;
+        p.category = product.category;
+        p.description = product.description;
+        p.expiryDate = product.expiryDate;
+        p.isSpecial = product.isSpecial;
+        p.price = product.price;
+      }
+
+      return p;
+    });
+
+    setProductList(updatedProductList);
+  };
+
+  const onFilter = (filterCategories: categoryItem[]) => {
+    const filteredProducts = products.filter((p) =>
+      filterCategories.length > 0
+        ? filterCategories.map((x: categoryItem) => x.code).includes(p.category)
+        : true
+    );
+
+    setProductList(filteredProducts);
+  };
+
   return (
     <>
-      <Navbar filterItems={categories} onAdd={onProductAddClick} />
+      <Navbar
+        filterItems={categories}
+        onAdd={onProductAddClick}
+        onFilter={onFilter}
+      />
       <div className="flex flex-wrap justify-content-center">
         {productList.map((product, index) => (
           <Product
@@ -122,6 +168,8 @@ function App() {
             category={product.category}
             price={product.price}
             isSpecial={product.isSpecial}
+            onDeleteClick={onDeleteClick}
+            onEditClick={onEditClick}
           />
         ))}
       </div>
@@ -129,6 +177,12 @@ function App() {
         visible={showAddProduct}
         setVisible={showProductForm}
         addProduct={addProduct}
+      />
+      <EditProductForm
+        product={product}
+        visible={showEditProduct}
+        setVisible={showEditProductForm}
+        updateProduct={updateProduct}
       />
     </>
   );
