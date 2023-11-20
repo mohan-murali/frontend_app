@@ -48,8 +48,8 @@ export const Product: React.FC<ProductProps> = ({
   );
 
   return (
-    <div className="card flex justify-content-center">
-      <Card title={name} footer={footer} header={header} className="md:w-25rem">
+    <div className="card flex justify-content-center w-20rem mr-4 mt-4">
+      <Card title={name} footer={footer} header={header} className="w-25rem">
         <div>{description}</div>
         <div>{canExpire ? "Can Expire" : "Doesn't Expire"}</div>
         {canExpire && expiryDate && <div>{expiryDate}</div>}

@@ -106,18 +106,20 @@ function App() {
   return (
     <>
       <Navbar filterItems={categories} onAdd={onProductAddClick} />
-      {productList.map((product, index) => (
-        <Product
-          key={`${index}_${product.name}`}
-          name={product.name}
-          description={product.description}
-          canExpire={product.canExpire}
-          expiryDate={product.expiryDate}
-          category={product.category}
-          price={product.price}
-          isSpecial={product.isSpecial}
-        />
-      ))}
+      <div className="flex flex-wrap justify-content-center">
+        {productList.map((product, index) => (
+          <Product
+            key={`${index}_${product.name}`}
+            name={product.name}
+            description={product.description}
+            canExpire={product.canExpire}
+            expiryDate={product.expiryDate}
+            category={product.category}
+            price={product.price}
+            isSpecial={product.isSpecial}
+          />
+        ))}
+      </div>
       <AddProductForm
         visible={showAddProduct}
         setVisible={showProductForm}

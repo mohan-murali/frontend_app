@@ -30,7 +30,7 @@ export const Navbar: React.FC<NavbarProps> = ({ filterItems, onAdd }) => {
           placeholder="Select Filter"
           className="w-full md:w-20rem"
         />
-        <Button className="ml-10" onClick={onAdd}>
+        <Button className="ml-4" onClick={onAdd}>
           Add New Product{" "}
         </Button>
       </div>
