@@ -15,7 +15,7 @@ export interface productInt {
   isSpecial: boolean;
 }
 
-const products = [
+let products = [
   {
     name: "Apples",
     description: "Tessco Apples",
@@ -106,6 +106,7 @@ function App() {
 
   const addProduct = (product: productInt) => {
     setProductList([...productList, product]);
+    products.push(product);
     setShowAddProduct(false);
   };
 
@@ -120,6 +121,7 @@ function App() {
 
   const onDeleteClick = (name: string) => {
     const deletedList = productList.filter((p) => p.name !== name);
+    products = deletedList;
     setProductList(deletedList);
   };
 
@@ -136,7 +138,7 @@ function App() {
 
       return p;
     });
-
+    products = updatedProductList;
     setProductList(updatedProductList);
   };
 
