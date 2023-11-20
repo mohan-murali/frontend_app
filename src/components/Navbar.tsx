@@ -13,13 +13,6 @@ export const Navbar: React.FC<NavbarProps> = ({ filterItems, onAdd }) => {
   const [selectedItems, setSelectedItem] = useState(null);
   const filterTemplate = () => {
     const items = filterItems;
-    //       [
-    //   { name: "New York", code: "NY" },
-    //   { name: "Rome", code: "RM" },
-    //   { name: "London", code: "LDN" },
-    //   { name: "Istanbul", code: "IST" },
-    //   { name: "Paris", code: "PRS" },
-    // ];
     return (
       <div>
         <MultiSelect
