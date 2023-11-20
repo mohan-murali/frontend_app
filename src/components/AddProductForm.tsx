@@ -166,7 +166,11 @@ export const AddProductForm: React.FC<AddProductFormProps> = ({
         <div className="flex flex-column gap-2">
           <label htmlFor="name">Product Name</label>
           <InputText id="name" value={state.name} onChange={onNameChange} />
-          {state.nameError && <small id="name-help">{state.nameError}</small>}
+          {state.nameError && (
+            <small className="text-red-500" id="name-help">
+              {state.nameError}
+            </small>
+          )}
         </div>
         <div className="flex mt-2 flex-column gap-2">
           <label htmlFor="description">Description</label>
@@ -176,7 +180,9 @@ export const AddProductForm: React.FC<AddProductFormProps> = ({
             onChange={onDescriptionChange}
           />
           {state.descriptionError && (
-            <small id="description-help">{state.descriptionError}</small>
+            <small className="text-red-500" id="description-help">
+              {state.descriptionError}
+            </small>
           )}
         </div>
         <div className="flex mt-2 flex-column gap-2">
@@ -187,7 +193,9 @@ export const AddProductForm: React.FC<AddProductFormProps> = ({
             onChange={onCategoryChange}
           />
           {state.categoryError && (
-            <small id="category-help">{state.categoryError}</small>
+            <small className="text-red-500" id="category-help">
+              {state.categoryError}
+            </small>
           )}
         </div>
         <div className="flex align-items-center my-4 gap-2">
@@ -208,7 +216,9 @@ export const AddProductForm: React.FC<AddProductFormProps> = ({
               showIcon
             />
             {state.expiryDateError && (
-              <small id="expiryDate-help">{state.expiryDateError}</small>
+              <small className="text-red-500" id="expiryDate-help">
+                {state.expiryDateError}
+              </small>
             )}
           </div>
         )}
@@ -221,7 +231,9 @@ export const AddProductForm: React.FC<AddProductFormProps> = ({
             onChange={onPriceChange}
           />
           {state.priceError && (
-            <small id="price-help">{state.priceError}</small>
+            <small className="text-red-500" id="price-help">
+              {state.priceError}
+            </small>
           )}
         </div>
         <div className="flex align-items-center mt-4 gap-2">

@@ -1,30 +1,21 @@
-# React + TypeScript + Vite
+# Libraries Used
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+I am using the following Libraries with this app
 
-Currently, two official plugins are available:
+- Prime React - Its a free and open sourced React component library. I am using this library to quickly create frequently used components and to make my app more presentatble.
+- Prime Flex /Prime Icons - Its a free and open sourced CSS library. Combined with prime react, its used for creating and styling components quickly.
+- Vite - Vite is a next gen front end tooling library. I am using it for fast build and running as well as fast Hot module replacement.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Steps for running the app
 
-## Expanding the ESLint configuration
+To run the app you must first install all the dependencies. We are using NPM in this project as well asl Node version 20.x .
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
-
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
+```sh
+npm install
 ```
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+Once we have installed the dependencies, we can run the app using run dev npm script.
+
+```sh
+npm run dev
+```
