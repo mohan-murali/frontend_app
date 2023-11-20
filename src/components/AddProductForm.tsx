@@ -55,16 +55,18 @@ export const registerReducer = (state: any, action: any) => {
     case "canExpire":
       return { ...state, canExpire: action.canExpire, canExpireError: "" };
     case "expiryDate":
+      console.log(action.expiryDate);
       return { ...state, expiryDate: action.expiryDate, expiryDateError: "" };
     case "isSpecial":
       return { ...state, isSpecial: action.isSpecial };
     case "reset":
       return initialRegisterState;
     case "updateProduct":
+      console.log(Date.parse(action.product?.expiryDate));
       return {
         ...state,
         ...action.product,
-        expiryDate: Date.parse(action.product?.expiryDate),
+        expiryDate: new Date(action.product?.expiryDate),
       };
   }
 };
@@ -212,7 +214,12 @@ export const AddProductForm: React.FC<AddProductFormProps> = ({
         )}
         <div className="flex mt-2 flex-column gap-2">
           <label htmlFor="price">Price</label>
-          <InputText id="price" value={state.price} onChange={onPriceChange} />
+          <InputText
+            type="number"
+            id="price"
+            value={state.price}
+            onChange={onPriceChange}
+          />
           {state.priceError && (
             <small id="price-help">{state.priceError}</small>
           )}

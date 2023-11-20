@@ -23,6 +23,7 @@ export const EditProductForm: React.FC<EditProductFormProps> = ({
 }) => {
   const [state, dispatch] = useReducer(registerReducer, initialRegisterState);
   useEffect(() => {
+    console.log(product);
     dispatch({ type: "updateProduct", product });
   }, [product]);
   const handleSubmit = async (e: any) => {
@@ -162,7 +163,12 @@ export const EditProductForm: React.FC<EditProductFormProps> = ({
         )}
         <div className="flex mt-2 flex-column gap-2">
           <label htmlFor="price">Price</label>
-          <InputText id="price" value={state.price} onChange={onPriceChange} />
+          <InputText
+            type="number"
+            id="price"
+            value={state.price}
+            onChange={onPriceChange}
+          />
           {state.priceError && (
             <small id="price-help">{state.priceError}</small>
           )}

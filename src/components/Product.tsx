@@ -76,7 +76,7 @@ export const Product: React.FC<ProductProps> = ({
         <div>{canExpire ? "Can Expire" : "Doesn't Expire"}</div>
         {canExpire && expiryDate && <div>Expirey Date: {expiryDate}</div>}
         <div> category: {category}</div>
-        <div>price: {price}</div>
+        <div>price: £{price}</div>
         <div className="flex align-items-center justify-content-center">
           <Checkbox
             id="special"
