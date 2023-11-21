@@ -17,7 +17,6 @@ export const Navbar: React.FC<NavbarProps> = ({
 }) => {
   const [selectedItems, setSelectedItem] = useState(null);
   const onFilterItem = (e: MultiSelectChangeEvent) => {
-    console.log(e.value);
     setSelectedItem(e.value);
     onFilter(e.value);
   };

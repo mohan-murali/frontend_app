@@ -55,14 +55,12 @@ export const registerReducer = (state: any, action: any) => {
     case "canExpire":
       return { ...state, canExpire: action.canExpire, canExpireError: "" };
     case "expiryDate":
-      console.log(action.expiryDate);
       return { ...state, expiryDate: action.expiryDate, expiryDateError: "" };
     case "isSpecial":
       return { ...state, isSpecial: action.isSpecial };
     case "reset":
       return initialRegisterState;
     case "updateProduct":
-      console.log(Date.parse(action.product?.expiryDate));
       return {
         ...state,
         ...action.product,
@@ -119,7 +117,6 @@ export const AddProductForm: React.FC<AddProductFormProps> = ({
           year: "numeric",
         });
         formattedDate = formatter.format(state.expiryDate);
-        console.log(formattedDate);
       }
       addProduct({
         name: state.name,

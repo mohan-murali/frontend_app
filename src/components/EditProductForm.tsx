@@ -23,7 +23,6 @@ export const EditProductForm: React.FC<EditProductFormProps> = ({
 }) => {
   const [state, dispatch] = useReducer(registerReducer, initialRegisterState);
   useEffect(() => {
-    console.log(product);
     dispatch({ type: "updateProduct", product });
   }, [product]);
   const handleSubmit = async (e: any) => {
@@ -68,7 +67,6 @@ export const EditProductForm: React.FC<EditProductFormProps> = ({
           year: "numeric",
         });
         formattedDate = formatter.format(state.expiryDate);
-        console.log(formattedDate);
       }
       updateProduct({
         name: state.name,
