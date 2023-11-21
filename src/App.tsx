@@ -4,7 +4,7 @@ import { AddProductForm } from "./components/AddProductForm";
 import { Navbar } from "./components/Navbar";
 import { Product } from "./components/Product";
 
-export interface productInt {
+export interface ProductInt {
   name: string;
   description: string;
   canExpire: boolean;
@@ -76,11 +76,11 @@ export interface categoryItem {
 }
 
 function App() {
-  const [productList, setProductList] = useState<productInt[]>(products);
+  const [productList, setProductList] = useState<ProductInt[]>(products);
   const [categories, setCategories] = useState<categoryItem[]>([]);
   const [showAddProduct, setShowAddProduct] = useState<boolean>(false);
   const [isUpdate, setIsUpdate] = useState<boolean>(false);
-  const [product, setProduct] = useState<productInt>();
+  const [product, setProduct] = useState<ProductInt>();
 
   useEffect(() => {
     const categorySet = new Set();
@@ -104,7 +104,7 @@ function App() {
     }
   };
 
-  const addProduct = (product: productInt) => {
+  const addProduct = (product: ProductInt) => {
     setProductList([...productList, product]);
     products.push(product);
     setShowAddProduct(false);
@@ -114,7 +114,7 @@ function App() {
     setShowAddProduct(true);
   };
 
-  const onEditClick = (product: productInt) => {
+  const onEditClick = (product: ProductInt) => {
     setProduct(product);
     setIsUpdate(true);
     setShowAddProduct(true);
@@ -126,7 +126,7 @@ function App() {
     setProductList(deletedList);
   };
 
-  const updateProduct = (product: productInt) => {
+  const updateProduct = (product: ProductInt) => {
     const updatedProductList = productList.map((p) => {
       if (p.name === product.name) {
         p.canExpire = product.canExpire;

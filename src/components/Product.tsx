@@ -2,7 +2,7 @@ import { Button } from "primereact/button";
 import { Card } from "primereact/card";
 import { Checkbox } from "primereact/checkbox";
 import React, { useEffect, useState } from "react";
-import { productInt } from "../App";
+import { ProductInt } from "../App";
 
 export interface ProductProps {
   name: string;
@@ -12,7 +12,7 @@ export interface ProductProps {
   category: string;
   price: string;
   isSpecial: boolean;
-  onEditClick: (product: productInt) => void;
+  onEditClick: (product: ProductInt) => void;
   onDeleteClick: (name: string) => void;
 }
 

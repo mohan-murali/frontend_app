@@ -5,15 +5,15 @@ import { Checkbox } from "primereact/checkbox";
 import { Dialog } from "primereact/dialog";
 import { InputText } from "primereact/inputtext";
 import React, { useEffect, useReducer } from "react";
-import { productInt } from "../App";
+import { ProductInt } from "../App";
 
 interface AddProductFormProps {
   visible: boolean;
   setVisible: (visiblility: boolean) => void;
-  addProduct: (product: productInt) => void;
+  addProduct: (product: ProductInt) => void;
   isUpdate?: boolean;
-  product?: productInt;
-  updateProduct: (product: productInt) => void;
+  product?: ProductInt;
+  updateProduct: (product: ProductInt) => void;
 }
 
 const initialRegisterState = {
