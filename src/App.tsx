@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import "./App.css";
 import { AddProductForm } from "./components/AddProductForm";
-import { EditProductForm } from "./components/EditProductForm";
 import { Navbar } from "./components/Navbar";
 import { Product } from "./components/Product";
 
@@ -80,7 +79,7 @@ function App() {
   const [productList, setProductList] = useState<productInt[]>(products);
   const [categories, setCategories] = useState<categoryItem[]>([]);
   const [showAddProduct, setShowAddProduct] = useState<boolean>(false);
-  const [showEditProduct, setShowEditProduct] = useState<boolean>(false);
+  const [isUpdate, setIsUpdate] = useState<boolean>(false);
   const [product, setProduct] = useState<productInt>();
 
   useEffect(() => {
@@ -98,11 +97,12 @@ function App() {
     setCategories(uniqueCategory);
   }, [productList, setCategories]);
 
-  const showProductForm = (visibility: boolean) =>
+  const showProductForm = (visibility: boolean) => {
     setShowAddProduct(visibility);
-
-  const showEditProductForm = (visibility: boolean) =>
-    setShowEditProduct(visibility);
+    if (!visibility) {
+      setIsUpdate(false);
+    }
+  };
 
   const addProduct = (product: productInt) => {
     setProductList([...productList, product]);
@@ -116,7 +116,8 @@ function App() {
 
   const onEditClick = (product: productInt) => {
     setProduct(product);
-    setShowEditProduct(true);
+    setIsUpdate(true);
+    setShowAddProduct(true);
   };
 
   const onDeleteClick = (name: string) => {
@@ -140,6 +141,7 @@ function App() {
     });
     products = updatedProductList;
     setProductList(updatedProductList);
+    setIsUpdate(false);
   };
 
   const onFilter = (filterCategories: categoryItem[]) => {
@@ -179,12 +181,9 @@ function App() {
         visible={showAddProduct}
         setVisible={showProductForm}
         addProduct={addProduct}
-      />
-      <EditProductForm
-        product={product}
-        visible={showEditProduct}
-        setVisible={showEditProductForm}
         updateProduct={updateProduct}
+        product={product}
+        isUpdate={isUpdate}
       />
     </>
   );

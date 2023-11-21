@@ -4,13 +4,16 @@ import { Calendar } from "primereact/calendar";
 import { Checkbox } from "primereact/checkbox";
 import { Dialog } from "primereact/dialog";
 import { InputText } from "primereact/inputtext";
-import React, { useReducer } from "react";
+import React, { useEffect, useReducer } from "react";
 import { productInt } from "../App";
 
 export interface AddProductFormProps {
   visible: boolean;
   setVisible: (visiblility: boolean) => void;
   addProduct: (product: productInt) => void;
+  isUpdate?: boolean;
+  product?: productInt;
+  updateProduct: (product: productInt) => void;
 }
 
 export const initialRegisterState = {
@@ -73,8 +76,18 @@ export const AddProductForm: React.FC<AddProductFormProps> = ({
   visible,
   setVisible,
   addProduct,
+  product,
+  isUpdate,
+  updateProduct,
 }) => {
   const [state, dispatch] = useReducer(registerReducer, initialRegisterState);
+  useEffect(() => {
+    if (isUpdate) {
+      dispatch({ type: "updateProduct", product });
+    } else {
+      dispatch({ type: "reset" });
+    }
+  }, [product, isUpdate]);
   const handleSubmit = async (e: any) => {
     e.preventDefault();
 
@@ -118,16 +131,30 @@ export const AddProductForm: React.FC<AddProductFormProps> = ({
         });
         formattedDate = formatter.format(state.expiryDate);
       }
-      addProduct({
-        name: state.name,
-        description: state.description,
-        category: state.category,
-        price: state.price,
-        canExpire: state.canExpire,
-        expiryDate: formattedDate,
-        isSpecial: state.isSpecial,
-      });
-      dispatch({ type: "reset" });
+
+      if (isUpdate) {
+        updateProduct({
+          name: state.name,
+          description: state.description,
+          category: state.category,
+          price: state.price,
+          canExpire: state.canExpire,
+          expiryDate: formattedDate,
+          isSpecial: state.isSpecial,
+        });
+        setVisible(false);
+      } else {
+        addProduct({
+          name: state.name,
+          description: state.description,
+          category: state.category,
+          price: state.price,
+          canExpire: state.canExpire,
+          expiryDate: formattedDate,
+          isSpecial: state.isSpecial,
+        });
+        dispatch({ type: "reset" });
+      }
     }
   };
   const onNameChange = (e: any) => {
@@ -154,7 +181,7 @@ export const AddProductForm: React.FC<AddProductFormProps> = ({
 
   return (
     <Dialog
-      header="Add new Product"
+      header={isUpdate ? "Update Product" : "Add new Product"}
       visible={visible}
       style={{ width: "50vw" }}
       onHide={() => setVisible(false)}
@@ -242,7 +269,7 @@ export const AddProductForm: React.FC<AddProductFormProps> = ({
           <label htmlFor="special">Special</label>
         </div>
         <Button className="mt-4" type="submit">
-          Add
+          {isUpdate ? "Update Product" : "Add Product"}
         </Button>
       </form>
     </Dialog>
