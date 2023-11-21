@@ -7,7 +7,7 @@ import { InputText } from "primereact/inputtext";
 import React, { useEffect, useReducer } from "react";
 import { productInt } from "../App";
 
-export interface AddProductFormProps {
+interface AddProductFormProps {
   visible: boolean;
   setVisible: (visiblility: boolean) => void;
   addProduct: (product: productInt) => void;
@@ -16,7 +16,7 @@ export interface AddProductFormProps {
   updateProduct: (product: productInt) => void;
 }
 
-export const initialRegisterState = {
+const initialRegisterState = {
   name: "",
   nameError: "",
   description: "",
@@ -31,7 +31,7 @@ export const initialRegisterState = {
   isSpecial: false,
 };
 
-export const registerReducer = (state: any, action: any) => {
+const registerReducer = (state: any, action: any) => {
   switch (action.type) {
     case "descriptionError":
       return { ...state, descriptionError: action.error };
